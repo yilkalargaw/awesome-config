@@ -620,6 +620,7 @@ startup_programs.run("volumeicon")
 startup_programs.run("blueberry-tray")
 startup_programs.run("xscreensaver -no-splash")
 startup_programs.run("lxpanel")
+startup_programs.run("ulauncher")
 --
 --poppin.pop("termianl", "lxterminal", "top")
 --]]
