@@ -365,8 +365,8 @@ globalkeys = gears.table.join(
   --                awful.util.spawn_with_shell("xfce4-screenshooter -w") end),               
         awful.key({"Mod4" }, "Print"  , function ()                                   
                   awful.util.spawn_with_shell("xfce4-screenshooter -r") end),               
-        awful.key({ modkey, "Control" }, "Print", function ()                            
-			  awful.util.spawn_with_shell("vokoscreen") end)
+        awful.key({ "Mod4" }, "p", function ()                            
+	      awful.util.spawn_with_shell("xfce4-popup-whiskermenu") end)
 	-- Brightness
 --
 --   awful.key({ }, "XF86MonBrightnessDown", function ()
@@ -482,8 +482,10 @@ root.keys(globalkeys)
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
-    -- All clients will match this rule.
+
+   -- All clients will match this rule.
     { rule = { },
+--      except = { instance = "ulauncher" },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
@@ -499,8 +501,7 @@ awful.rules.rules = {
     { rule_any = {
         instance = {
 		  "DTA",  -- Firefox addon DownThemAll.
-		  "synapse",
-          "copyq",  -- Includes session name in class.
+		  "copyq",  -- Includes session name in class.
         },
         class = {
           "Arandr",
@@ -527,6 +528,20 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
+    -- 
+    { rule_any = { instance = {"ulauncher", "synapse", "rofi", "kupfer" ,"albert" ,}},
+      properties = { floating = true,
+		     placement = awful.placement.top_right
+      }
+    },
+    
+    { rule_any = { name = {'Whisker Menu'}},
+      properties = { floating = true,
+		     placement = awful.placement.bottom_right
+      }
+    },
+
+    
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
@@ -619,7 +634,7 @@ startup_programs.run("conky -c ~/.conky/.conkyrc")
 startup_programs.run("volumeicon")
 startup_programs.run("blueberry-tray")
 startup_programs.run("xscreensaver -no-splash")
-startup_programs.run("lxpanel")
+startup_programs.run("xfce4-panel")
 startup_programs.run("ulauncher")
 --
 --poppin.pop("termianl", "lxterminal", "top")
